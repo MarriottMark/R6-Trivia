@@ -1,0 +1,59 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #0f1115;
+  color: white;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  gap: 30px;
+}
+
+.image-section {
+  flex: 1;
+}
+
+.image-section img {
+  max-width: 100%;
+  border-radius: 10px;
+  border: 3px solid #555;
+}
+
+.trivia-section {
+  flex: 2;
+}
+
+.trivia-section h2 {
+  margin-top: 0;
+  font-size: 24px;
+}
+
+.options {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.options button {
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #2d2f36;
+  color: white;
+  transition: background-color 0.2s;
+}
+
+.options button:hover {
+  background-color: #3e4149;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 18px;
+}
