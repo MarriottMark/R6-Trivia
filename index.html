@@ -12,37 +12,93 @@
       <img src="images/example.jpg" alt="Operator Image" id="question-image"/>
     </div>
     <div class="trivia-section">
-      <h2 id="question">Which operator uses the gadget "Logic Bomb"?</h2>
-      <div class="options">
-        <button onclick="checkAnswer(this)" data-correct="false">Finka</button>
-        <button onclick="checkAnswer(this)" data-correct="true">Dokkaebi</button>
-        <button onclick="checkAnswer(this)" data-correct="false">Thatcher</button>
-        <button onclick="checkAnswer(this)" data-correct="false">IQ</button>
+      <h2 id="question">Loading question...</h2>
+      <div class="options" id="options-container">
+        <!-- Options will be loaded here dynamically -->
       </div>
       <div id="result"></div>
+      <button id="next-button" onclick="nextQuestion()" style="display: none;">Next Question</button>
     </div>
   </div>
 
   <script>
-    function checkAnswer(selectedBtn) {
-      const buttons = document.querySelectorAll(".options button");
-      const isCorrect = selectedBtn.getAttribute("data-correct") === "true";
+    const questions = [
+      {
+        text: "Which operator uses the gadget 'Logic Bomb'?",
+        image: "images/dokkaebi.jpg",
+        answers: ["Finka", "Dokkaebi", "Thatcher", "IQ"],
+        correct: "Dokkaebi"
+      },
+      {
+        text: "Which defender has the gadget 'Evil Eye'?",
+        image: "images/maestro.jpg",
+        answers: ["Echo", "Kaid", "Maestro", "Clash"],
+        correct: "Maestro"
+      },
+      {
+        text: "Which attacker uses the 'Skeleton Key'?",
+        image: "images/buck.jpg",
+        answers: ["Buck", "Sledge", "Zofia", "Ash"],
+        correct: "Buck"
+      }
+    ];
 
-      buttons.forEach(btn => btn.disabled = true); // disable all buttons
+    let currentQuestionIndex = 0;
 
-      if (isCorrect) {
-        selectedBtn.classList.add("correct");
-        document.getElementById("result").textContent = "✅ Correct!";
-      } else {
+    function loadQuestion() {
+      const questionData = questions[currentQuestionIndex];
+      document.getElementById("question").textContent = questionData.text;
+      document.getElementById("question-image").src = questionData.image;
+
+      const optionsContainer = document.getElementById("options-container");
+      optionsContainer.innerHTML = "";
+
+      questionData.answers.forEach(answer => {
+        const button = document.createElement("button");
+        button.textContent = answer;
+        button.onclick = () => checkAnswer(button, questionData.correct);
+        optionsContainer.appendChild(button);
+      });
+
+      document.getElementById("result").textContent = "";
+      document.getElementById("next-button").style.display = "none";
+    }
+
+    function checkAnswer(selectedBtn, correctAnswer) {
+      const buttons = document.querySelectorAll("#options-container button");
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === correctAnswer) {
+          btn.classList.add("correct");
+        }
+      });
+
+      if (selectedBtn.textContent !== correctAnswer) {
         selectedBtn.classList.add("wrong");
         document.getElementById("result").textContent = "❌ Incorrect.";
-        buttons.forEach(btn => {
-          if (btn.getAttribute("data-correct") === "true") {
-            btn.classList.add("correct");
-          }
-        });
+      } else {
+        selectedBtn.classList.add("correct");
+        document.getElementById("result").textContent = "✅ Correct!";
+      }
+
+      document.getElementById("next-button").style.display = "block";
+    }
+
+    function nextQuestion() {
+      currentQuestionIndex++;
+      if (currentQuestionIndex >= questions.length) {
+        document.getElementById("question").textContent = "🎉 You've completed the trivia!";
+        document.getElementById("question-image").style.display = "none";
+        document.getElementById("options-container").innerHTML = "";
+        document.getElementById("result").textContent = "";
+        document.getElementById("next-button").style.display = "none";
+      } else {
+        loadQuestion();
       }
     }
+
+    loadQuestion(); // initial load
   </script>
 </body>
 </html>
