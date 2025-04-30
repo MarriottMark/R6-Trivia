@@ -33,13 +33,13 @@ body {
 
 .options {
   margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
 }
 
 .options button {
-  padding: 10px;
+  padding: 12px;
   font-size: 16px;
   border: none;
   border-radius: 6px;
@@ -49,8 +49,23 @@ body {
   transition: background-color 0.2s;
 }
 
-.options button:hover {
+.options button:hover:not(:disabled) {
   background-color: #3e4149;
+}
+
+.options button.correct {
+  background-color: #4CAF50 !important; /* green */
+  color: white;
+}
+
+.options button.wrong {
+  background-color: #f44336 !important; /* red */
+  color: white;
+}
+
+.options button:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
 }
 
 #result {
