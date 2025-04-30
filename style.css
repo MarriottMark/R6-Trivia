@@ -54,12 +54,12 @@ body {
 }
 
 .options button.correct {
-  background-color: #4CAF50 !important; /* green */
+  background-color: #4CAF50 !important;
   color: white;
 }
 
 .options button.wrong {
-  background-color: #f44336 !important; /* red */
+  background-color: #f44336 !important;
   color: white;
 }
 
@@ -71,4 +71,19 @@ body {
 #result {
   margin-top: 20px;
   font-size: 18px;
+}
+
+#next-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #444;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#next-button:hover {
+  background-color: #666;
 }
