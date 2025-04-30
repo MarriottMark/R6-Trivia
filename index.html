@@ -14,26 +14,33 @@
     <div class="trivia-section">
       <h2 id="question">Which operator uses the gadget "Logic Bomb"?</h2>
       <div class="options">
-        <button onclick="checkAnswer(this)">Finka</button>
-        <button onclick="checkAnswer(this)">Dokkaebi</button>
-        <button onclick="checkAnswer(this)">Thatcher</button>
-        <button onclick="checkAnswer(this)">IQ</button>
+        <button onclick="checkAnswer(this)" data-correct="false">Finka</button>
+        <button onclick="checkAnswer(this)" data-correct="true">Dokkaebi</button>
+        <button onclick="checkAnswer(this)" data-correct="false">Thatcher</button>
+        <button onclick="checkAnswer(this)" data-correct="false">IQ</button>
       </div>
       <div id="result"></div>
     </div>
   </div>
 
   <script>
-    const correctAnswer = "Dokkaebi";
+    function checkAnswer(selectedBtn) {
+      const buttons = document.querySelectorAll(".options button");
+      const isCorrect = selectedBtn.getAttribute("data-correct") === "true";
 
-    function checkAnswer(button) {
-      const result = document.getElementById("result");
-      if (button.textContent === correctAnswer) {
-        result.textContent = "✅ Correct!";
-        result.style.color = "green";
+      buttons.forEach(btn => btn.disabled = true); // disable all buttons
+
+      if (isCorrect) {
+        selectedBtn.classList.add("correct");
+        document.getElementById("result").textContent = "✅ Correct!";
       } else {
-        result.textContent = "❌ Incorrect. Try again!";
-        result.style.color = "red";
+        selectedBtn.classList.add("wrong");
+        document.getElementById("result").textContent = "❌ Incorrect.";
+        buttons.forEach(btn => {
+          if (btn.getAttribute("data-correct") === "true") {
+            btn.classList.add("correct");
+          }
+        });
       }
     }
   </script>
