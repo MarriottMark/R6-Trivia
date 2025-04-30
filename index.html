@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rainbow Six Siege Trivia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="image-section">
+      <img src="images/example.jpg" alt="Operator Image" id="question-image"/>
+    </div>
+    <div class="trivia-section">
+      <h2 id="question">Which operator uses the gadget "Logic Bomb"?</h2>
+      <div class="options">
+        <button onclick="checkAnswer(this)">Finka</button>
+        <button onclick="checkAnswer(this)">Dokkaebi</button>
+        <button onclick="checkAnswer(this)">Thatcher</button>
+        <button onclick="checkAnswer(this)">IQ</button>
+      </div>
+      <div id="result"></div>
+    </div>
+  </div>
 
+  <script>
+    const correctAnswer = "Dokkaebi";
+
+    function checkAnswer(button) {
+      const result = document.getElementById("result");
+      if (button.textContent === correctAnswer) {
+        result.textContent = "✅ Correct!";
+        result.style.color = "green";
+      } else {
+        result.textContent = "❌ Incorrect. Try again!";
+        result.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
