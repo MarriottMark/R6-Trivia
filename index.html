@@ -64,26 +64,31 @@
       document.getElementById("next-button").style.display = "none";
     }
 
-    function checkAnswer(selectedBtn, correctAnswer) {
-      const buttons = document.querySelectorAll("#options-container button");
+function checkAnswer(selectedBtn, correctAnswer) {
+  const buttons = document.querySelectorAll("#options-container button");
 
-      buttons.forEach(btn => {
-        btn.disabled = true;
-        if (btn.textContent === correctAnswer) {
-          btn.classList.add("correct");
-        }
-      });
+  // First, disable all buttons
+  buttons.forEach(btn => btn.disabled = true);
 
-      if (selectedBtn.textContent !== correctAnswer) {
-        selectedBtn.classList.add("wrong");
-        document.getElementById("result").textContent = "❌ Incorrect.";
-      } else {
-        selectedBtn.classList.add("correct");
-        document.getElementById("result").textContent = "✅ Correct!";
+  // If correct
+  if (selectedBtn.textContent === correctAnswer) {
+    selectedBtn.classList.add("correct");
+    document.getElementById("result").textContent = "✅ Correct!";
+  } else {
+    // If wrong
+    selectedBtn.classList.add("wrong");
+    document.getElementById("result").textContent = "❌ Incorrect.";
+
+    // Highlight the correct answer in green
+    buttons.forEach(btn => {
+      if (btn.textContent === correctAnswer) {
+        btn.classList.add("correct");
       }
+    });
+  }
 
-      document.getElementById("next-button").style.display = "block";
-    }
+  document.getElementById("next-button").style.display = "block";
+}
 
     function nextQuestion() {
       currentQuestionIndex++;
