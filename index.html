@@ -71,9 +71,17 @@
         answers: ["Ash", "Thermite", "Lion", "Montagne"],
         correct: "Ash"
       }
-
-
     ];
+
+    // Fisher-Yates shuffle function
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    shuffle(questions); // Shuffle questions on page load
 
     let currentQuestionIndex = 0;
 
@@ -96,31 +104,25 @@
       document.getElementById("next-button").style.display = "none";
     }
 
-function checkAnswer(selectedBtn, correctAnswer) {
-  const buttons = document.querySelectorAll("#options-container button");
+    function checkAnswer(selectedBtn, correctAnswer) {
+      const buttons = document.querySelectorAll("#options-container button");
+      buttons.forEach(btn => btn.disabled = true);
 
-  // First, disable all buttons
-  buttons.forEach(btn => btn.disabled = true);
-
-  // If correct
-  if (selectedBtn.textContent === correctAnswer) {
-    selectedBtn.classList.add("correct");
-    document.getElementById("result").textContent = "✅ Correct!";
-  } else {
-    // If wrong
-    selectedBtn.classList.add("wrong");
-    document.getElementById("result").textContent = "❌ Incorrect.";
-
-    // Highlight the correct answer in green
-    buttons.forEach(btn => {
-      if (btn.textContent === correctAnswer) {
-        btn.classList.add("correct");
+      if (selectedBtn.textContent === correctAnswer) {
+        selectedBtn.classList.add("correct");
+        document.getElementById("result").textContent = "✅ Correct!";
+      } else {
+        selectedBtn.classList.add("wrong");
+        document.getElementById("result").textContent = "❌ Incorrect.";
+        buttons.forEach(btn => {
+          if (btn.textContent === correctAnswer) {
+            btn.classList.add("correct");
+          }
+        });
       }
-    });
-  }
 
-  document.getElementById("next-button").style.display = "block";
-}
+      document.getElementById("next-button").style.display = "block";
+    }
 
     function nextQuestion() {
       currentQuestionIndex++;
@@ -135,7 +137,7 @@ function checkAnswer(selectedBtn, correctAnswer) {
       }
     }
 
-    loadQuestion(); // initial load
+    loadQuestion(); // Load the first (now shuffled) question
   </script>
 </body>
 </html>
