@@ -22,120 +22,92 @@
   </div>
 
   <script>
-    const questions = [
-      {
-        text: "Which operator uses the gadget 'Logic Bomb'?",
-        image: "images/R6-operators-gadget-dokkaebi.avif",
-        answers: ["Finka", "Dokkaebi", "Thatcher", "IQ"],
-        correct: "Dokkaebi"
-      },
-      {
-        text: "Which defender has the gadget 'Evil Eye'?",
-        image: "images/images.jpeg",
-        answers: ["Echo", "Kaid", "Maestro", "Clash"],
-        correct: "Maestro"
-      },
-      {
-        text: "Which attacker uses the 'Skeleton Key'?",
-        image: "images/R6S_Skeleton_Key.webp",
-        answers: ["Buck", "Sledge", "Zofia", "Ash"],
-        correct: "Buck"
-      },
-      {
-        text: "What is the real name of the operator 'Thermite'?",
-        image: "images/r6-operators-list-thermite.avif",
-        answers: ["Jordan Trace", "James Porter", "Dominic Brunsmeier", "Seamus Cowden"],
-        correct: "Jordan Trace"
-      },
-      {
-        text: "Which defender uses the gadget 'Gu Mines'?",
-        image: "images/federico-ferretti-gu-render-1.jpg",
-        answers: ["Lesion", "Kapkan", "Frost", "Pulse"],
-        correct: "Lesion"
-      },
-      {
-        text: "What type of gadget is 'ARGUS Camera' used by Zero?",
-        image: "images/r6s-operator-list-zero.avif",
-        answers: ["Throwable explosive", "Drill cam that can see through walls", "Healing dart", "Deployable shield"],
-        correct: "Drill cam that can see through walls"
-      },
-      {
-        text: "Which operator can use the gadget 'Kludge Drone'?",
-        image: "images/ognjen-panic-brava-drone-01.jpg",
-        answers: ["Solace", "Fenrir", "Brava", "Flores"],
-        correct: "Brava"
-      },
-      {
-        text: "Which of these operators is a 3-speed attacker?",
-        image: "images/images (1).jpeg",
-        answers: ["Ash", "Thermite", "Lion", "Montagne"],
-        correct: "Ash"
-      }
-
-
-    ];
-
-    let currentQuestionIndex = 0;
-
-    function loadQuestion() {
-      const questionData = questions[currentQuestionIndex];
-      document.getElementById("question").textContent = questionData.text;
-      document.getElementById("question-image").src = questionData.image;
-
-      const optionsContainer = document.getElementById("options-container");
-      optionsContainer.innerHTML = "";
-
-      questionData.answers.forEach(answer => {
-        const button = document.createElement("button");
-        button.textContent = answer;
-        button.onclick = () => checkAnswer(button, questionData.correct);
-        optionsContainer.appendChild(button);
-      });
-
-      document.getElementById("result").textContent = "";
-      document.getElementById("next-button").style.display = "none";
+  const questions = [
+    {
+      text: "Which operator uses the gadget 'Logic Bomb'?",
+      image: "images/R6-operators-gadget-dokkaebi.avif",
+      answers: ["Finka", "Dokkaebi", "Thatcher", "IQ"],
+      correct: "Dokkaebi"
+    },
+    {
+      text: "Which defender has the gadget 'Evil Eye'?",
+      image: "images/images.jpeg",
+      answers: ["Echo", "Kaid", "Maestro", "Clash"],
+      correct: "Maestro"
+    },
+    {
+      text: "Which attacker uses the 'Skeleton Key'?",
+      image: "images/R6S_Skeleton_Key.webp",
+      answers: ["Buck", "Sledge", "Zofia", "Ash"],
+      correct: "Buck"
+    },
+    {
+      text: "What is the real name of the operator 'Thermite'?",
+      image: "images/r6-operators-list-thermite.avif",
+      answers: ["Jordan Trace", "James Porter", "Dominic Brunsmeier", "Seamus Cowden"],
+      correct: "Jordan Trace"
+    },
+    {
+      text: "Which defender uses the gadget 'Gu Mines'?",
+      image: "images/federico-ferretti-gu-render-1.jpg",
+      answers: ["Lesion", "Kapkan", "Frost", "Pulse"],
+      correct: "Lesion"
+    },
+    {
+      text: "What type of gadget is 'ARGUS Camera' used by Zero?",
+      image: "images/r6s-operator-list-zero.avif",
+      answers: ["Throwable explosive", "Drill cam that can see through walls", "Healing dart", "Deployable shield"],
+      correct: "Drill cam that can see through walls"
+    },
+    {
+      text: "Which operator can use the gadget 'Kludge Drone'?",
+      image: "images/ognjen-panic-brava-drone-01.jpg",
+      answers: ["Solace", "Fenrir", "Brava", "Flores"],
+      correct: "Brava"
+    },
+    {
+      text: "Which of these operators is a 3-speed attacker?",
+      image: "images/images (1).jpeg",
+      answers: ["Ash", "Thermite", "Lion", "Montagne"],
+      correct: "Ash"
     }
+  ];
 
-function checkAnswer(selectedBtn, correctAnswer) {
-  const buttons = document.querySelectorAll("#options-container button");
-
-  // First, disable all buttons
-  buttons.forEach(btn => btn.disabled = true);
-
-  // If correct
-  if (selectedBtn.textContent === correctAnswer) {
-    selectedBtn.classList.add("correct");
-    document.getElementById("result").textContent = "✅ Correct!";
-  } else {
-    // If wrong
-    selectedBtn.classList.add("wrong");
-    document.getElementById("result").textContent = "❌ Incorrect.";
-
-    // Highlight the correct answer in green
-    buttons.forEach(btn => {
-      if (btn.textContent === correctAnswer) {
-        btn.classList.add("correct");
-      }
-    });
+  // Fisher-Yates Shuffle
+  function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [array[i], array[j]] = [array[j], array[i]];
+    }
   }
 
-  document.getElementById("next-button").style.display = "block";
-}
+  shuffle(questions); // Randomize order before starting
 
-    function nextQuestion() {
-      currentQuestionIndex++;
-      if (currentQuestionIndex >= questions.length) {
-        document.getElementById("question").textContent = "🎉 You've completed the trivia!";
-        document.getElementById("question-image").style.display = "none";
-        document.getElementById("options-container").innerHTML = "";
-        document.getElementById("result").textContent = "";
-        document.getElementById("next-button").style.display = "none";
-      } else {
-        loadQuestion();
-      }
-    }
+  let currentQuestionIndex = 0;
 
-    loadQuestion(); // initial load
-  </script>
+  function loadQuestion() {
+    const questionData = questions[currentQuestionIndex];
+    document.getElementById("question").textContent = questionData.text;
+    document.getElementById("question-image").src = questionData.image;
+
+    const optionsContainer = document.getElementById("options-container");
+    optionsContainer.innerHTML = "";
+
+    questionData.answers.forEach(answer => {
+      const button = document.createElement("button");
+      button.textContent = answer;
+      button.onclick = () => checkAnswer(button, questionData.correct);
+      optionsContainer.appendChild(button);
+    });
+
+    document.getElementById("result").textContent = "";
+    document.getElementById("next-button").style.display = "none";
+  }
+
+  // (rest of your existing code remains unchanged)
+
+  loadQuestion(); // initial load
+</script>
+
 </body>
 </html>
