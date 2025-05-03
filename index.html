@@ -1,27 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rainbow Six Siege Trivia</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <div class="container">
-    <div class="image-section">
-      <img src="images/example.jpg" alt="Operator Image" id="question-image"/>
-    </div>
-    <div class="trivia-section">
-      <h2 id="question">Loading question...</h2>
-      <div class="options" id="options-container">
-        <!-- Options will be loaded here dynamically -->
-      </div>
-      <div id="result"></div>
-      <button id="next-button" onclick="nextQuestion()" style="display: none;">Next Question</button>
-    </div>
-  </div>
-
-  <script>
+<script>
   const questions = [
     {
       text: "Which operator uses the gadget 'Logic Bomb'?",
@@ -108,6 +85,3 @@
 
   loadQuestion(); // initial load
 </script>
-
-</body>
-</html>
