@@ -14,7 +14,6 @@
     <div class="trivia-section">
       <h2 id="question">Loading question...</h2>
       <div class="options" id="options-container">
-        <!-- Options will be loaded here dynamically -->
       </div>
       <div id="result"></div>
       <button id="next-button" onclick="nextQuestion()" style="display: none;">Next Question</button>
@@ -73,7 +72,7 @@
       }
     ];
 
-    // Fisher-Yates shuffle function
+
     function shuffle(array) {
       for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -81,7 +80,7 @@
       }
     }
 
-    shuffle(questions); // Shuffle questions on page load
+    shuffle(questions); 
 
     let currentQuestionIndex = 0;
 
@@ -137,7 +136,7 @@
       }
     }
 
-    loadQuestion(); // Load the first (now shuffled) question
+    loadQuestion(); 
   </script>
 </body>
 </html>
